@@ -1,0 +1,34 @@
+{% extends 'users/login.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block main_section  %}
+    <div class="wrap-login100">
+        <form class="login100-form validate-form" method="POST">
+            {% csrf_token %}
+        <span class="login100-form-title p-b-26">
+            Добро пожаловать
+            <br>
+        </span>
+        <span class="login100-form-title p-b-48">
+            <img src="{% static 'main/img/logo.png' %}" width="30%" height="30%" >
+        </span>
+        
+        <form class="login100-form validate-form" method="POST">
+            <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                    <a class="login100-form-btn" href="{% url 'auth' %}"> Вернуться назад</a>
+                </div>
+        </div>
+        </form>
+    </form>
+</div>      
+{% endblock main_section %}
+
+{% block push_massage  %}
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+    <p class="lead fw-normal">Для верификации вашего аккаунта, потвердите вашу почту!</p>
+</div>
+{% endblock push_massage %}

@@ -1,0 +1,45 @@
+{% extends 'main/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block button_section %}
+<div class="navbar-nav">
+    <a href="{% url 'exit' %}" class="btn btn-outline-danger mr-2">Выход</a>
+</div>
+{% endblock button_section %}
+
+
+{% block main_section  %}
+  <div class="d-flex text-body-secondary pt-3">
+    <img class="mr-2 rounded" style="width: 64px; height: 64px;" src="{{ user.profile.img.url }}">
+    <p class="pb-3 mb-0 small lh-sm border-bottom",style="white-space: pre-wrap;">
+      <strong class="d-block text-gray-dark">&nbsp;&nbsp;&nbsp;&nbsp;ID пользователя: {{ user.id }}</strong>
+      <strong class="d-block text-blue-dark">&nbsp;&nbsp;&nbsp;&nbsp;Имя и фамилия: {{ user.first_name }}&nbsp;{{ user.last_name }}</strong>
+      {% if user.org == '' %}
+      <strong class="d-block text-blue-dark">&nbsp;&nbsp;&nbsp;&nbsp;Организация: Отсутсвует</strong>
+      {% else %}
+      <strong class="d-block text-blue-dark">&nbsp;&nbsp;&nbsp;&nbsp;Организация: {{ user.org }}</strong>
+      {% endif %}
+    </p>
+  </div>
+{% endblock main_section %}
+
+{% block other_section %}
+<hr> 
+<div class="form-registe col-md-6 mx-auto my-2">
+  <br>
+  <h4 class="text-center">Изменить информацию о пользователе</h4>
+          <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ update_user|crispy }}
+              <hr>
+              {{ img_profile|crispy }}
+              <p><br></p>
+              <button type="sumbit" class="btn btn-outline-primary">Обновить</button>
+          </form>
+</div>
+
+{% endblock other_section %}
+
+{% block new3_section  %}
+
+{% endblock new3_section  %}

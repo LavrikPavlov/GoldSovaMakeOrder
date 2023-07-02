@@ -1,0 +1,51 @@
+{% extends 'main/main.html' %}
+
+{% block button_section %}
+{% if user.is_authenticated %}
+<div class="navbar-nav">
+    <a href="{% url 'exit' %}" class="btn btn-outline-danger mr-2">Выход</a>
+</div>
+{% else %}
+    <div class="navbar-nav">
+        <a href="{% url 'reg' %}" class="btn btn-outline-danger mr-2">Регистрация</a>
+    </div>
+{% endif %}
+{% endblock button_section %}
+
+{% block main_section %}
+{% if user.is_authenticated %}
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-6 fw-normal">Сделать заказ?</h1>
+        <p class="lead fw-normal">Перейдите в "Заказать товар"</p>
+        <a class="btn btn-outline-danger mr-2" href="">Сделать заказ</a>
+            <p><br></p>
+            <h1 class="lead fw-normal">Не определились с выбором?</h1>
+            <a class="btn btn-outline-danger mr-2" href="{% url 'catalog:product_list' %}">Каталог</a>
+        </div>
+    </div>
+{% else %}
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-6 fw-normal">Сделать заказ?</h1>
+        <p class="lead fw-normal">Для того, чтобы сделать заказ, вам нужно авторизироватся</p>
+        <a class="btn btn-outline-danger mr-2" href="{% url 'auth' %}">Авторизация</a>
+            <p><br></p>
+            <h1 class="lead fw-normal">Нет в нашей базе?</h1>
+            <a class="btn btn-outline-danger mr-2" href="{% url 'reg' %}">Регистрация</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock main_section %}
+
+
+{% block other_section %}
+    <div class ="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+        {% filter upper %}
+            <p class="lead fw-normal">Сайт в разработке</p>
+        {% endfilter %}
+        <form action="https://zolotayasova.com/" target="_blank">
+            <button class="btn btn-warning">На офицальный сайт</button>
+        </form>
+    </div>
+{% endblock other_section %}

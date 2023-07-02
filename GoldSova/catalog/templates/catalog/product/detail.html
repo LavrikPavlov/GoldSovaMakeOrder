@@ -1,0 +1,102 @@
+
+{% extends 'main/main.html' %}
+{% load static %}
+
+{% block button_section %}
+{% if user.is_authenticated %}
+<div class="navbar-nav">
+    <a href="{% url 'exit' %}" class="btn btn-outline-danger mr-2">Выход</a>
+</div>
+{% else %}
+    <div class="navbar-nav">
+        <a href="{% url 'reg' %}" class="btn btn-outline-danger mr-2">Регистрация</a>
+    </div>
+{% endif %}
+{% endblock button_section %}
+
+{% block main_section %}
+{% endblock main_section %}
+
+{% block other_section %}
+<br><br><br>
+<hr>
+  <div class="container">
+    <div class="row no-gutters ">
+        
+      <div class="col-12 col-sm-6 col-md-8">
+        <h3 class="mb-0">{{ product.name }}</h3>
+            <strong class="d-inline-block mb-2 text-success">{{ product.category }}</strong>
+            <div class="mb-1 text-muted">{% if user.succes_user  %}Цена:  {{ product.price }} руб.{% else %} Пока цены вам не доступны {% endif %}</div>
+            <p class="">{{ product.about1 }}</p>
+            <p class="">{{ product.about2 }}</p>
+            <h3 class="mb-0">{{ product.about3 }}</h3>
+            <p class="">{{ product.about4 }}</p>
+
+            <h3 class="mb-0">Доступные обьемы:</h3>
+            <br>
+            {% if volume.volume1 %}
+            <p class="btn btn-success mr-2">0.5л</p>
+            {% else %}
+            <p class="btn btn-danger ">0.5л</p>
+            {% endif %}
+            {% if volume.volume2 %}
+            <p class="btn btn-success ">1.0л</p>
+            {% else %}
+            <p class="btn btn-danger ">1.0л</p>
+            {% endif %}
+            {% if volume.volume3 %}
+            <p class="btn btn-success ">1.5л</p>
+            {% else %}
+            <p class="btn btn-danger ">1.5л</p>
+            {% endif %}
+            {% if volume.volume4 %}
+            <p class="btn btn-success ">50л</p>
+            {% else %}
+            <p class="btn btn-danger ">50л</p>
+            {% endif %}
+            
+            <hr>
+            <a href="{{ product.category.get_url }}" class="btn btn-outline-danger mr-2">Вернутся назад</a>
+      </div>
+      <link href="{% static 'css/detail.css' %}" rel="stylesheet">
+      <div class="slider">
+        {% if photo.img1 != '' %}
+        <a href="#slide-1">0.5</a>
+        {% endif %}
+        {% if photo.img2 != '' %}
+        <a href="#slide-2">1.0</a>
+        {% endif %}
+        {% if photo.img3 != '' %}
+        <a href="#slide-3">1.5</a>
+        {% endif %}
+        {% if photo.img4 != '' %}
+        <a href="#slide-4">50</a>
+        {% endif %}
+        <div class="slides">
+          {% if photo.img1 != '' %}
+          <div id="slide-1"><div class="verticalcenter "><img width="70%" src="{{ photo.img1.url }}"></div></div>
+          {% endif %}
+          {% if photo.img2 != '' %}
+          <div id="slide-2"><div class="verticalcenter "><img width="70%" src="{{ photo.img2.url }}"></div></div>
+          {% endif %}
+          {% if photo.img3 != '' %}
+          <div id="slide-3"><div class="verticalcenter "><img width="70%" src="{{ photo.img3.url }}"></div></div>
+          {% endif %}
+          {% if photo.img4 != '' %}
+          <div id="slide-4"><div class="verticalcenter "><img width="70%" src="{{ photo.img4.url }}"></div></div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- <div class="item"><div class="verticalcenter "><img src="{{ product.img.url }}"></div></div> -->
+      
+    </div>
+  </div>
+
+{% endblock other_section %}
+
+{% block footer  %}
+{% endblock footer  %}
+
+
+

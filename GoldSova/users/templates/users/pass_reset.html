@@ -1,0 +1,30 @@
+{% extends 'users/login.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block main_section  %}
+<div class="wrap-login100">
+    <span class="login100-form-title p-b-26">
+        Восстановление пароля
+        <br>
+    </span>
+    <span class="login100-form-title p-b-48">
+        <img src="{% static 'main/img/logo.png' %}" width="30%" height="30%" >
+    </span>
+    <form class="login100-form validate-form" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <p><br></p>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">
+                            отправить
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+{% endblock main_section %}

@@ -1,0 +1,106 @@
+{% extends 'main/main.html' %}
+{% load static %}
+
+
+{% block button_section %}
+{% if user.is_authenticated %}
+<div class="navbar-nav">
+    <a href="{% url 'exit' %}" class="btn btn-outline-danger mr-2">Выход</a>
+</div>
+{% else %}
+    <div class="navbar-nav">
+        <a href="{% url 'reg' %}" class="btn btn-outline-danger mr-2">Регистрация</a>
+        <p>&nbsp;&nbsp;&nbsp;</p>
+        <a href="{% url 'auth' %}" class="btn btn-outline-danger mr-2">Авторизация</a>
+    </div>
+{% endif %}
+{% endblock button_section %}
+
+{% block main_section %}
+<link href="{% static 'css/base.css' %}" rel="stylesheet">
+<div id="sidebar">
+<h3>Категория</h3>
+<ul>
+        <li {% if not category %} class="selected" {% endif %}>
+            <a href="{% url 'catalog:product_list' %}">Все</a>
+        </li>
+    {% for el in categories %}
+        <li {% if category.slug == el.slug %} class="selected" {% endif %}>
+            <a href="{{ el.get_url }}">{{ el.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock main_section %}
+
+
+
+
+{% block other_section %}
+<hr>
+<div id="main" class="product-list">
+    <h2>
+        {% if category %}
+            {{ category.name }}
+            
+        {% else %}
+            Товары
+        {% endif %}
+    </h2>
+        {% for el in products %}
+            <div class="item">
+                    <a href="{{ el.get_url }}">
+                        <p>{{ el.name }}</p>
+                        <div class="verticalcenter"><img height="80%" src="{{ el.img.url }}"></div>
+                    </a>
+                    {% if user.succes_user %}
+                    <div class="mb-1 text-muted">Цена:  {{ el.price }} руб. </p></div>
+                    {% else %}
+                    <div class="mb-1 text-muted">Цена:  Не доступна </p></div>
+                    {% endif %}             
+                </div>       
+        {% endfor %}
+    </div> 
+        <style>
+            .verticalcenter {
+                display: table-cell;
+                height: 300px;
+                text-align: center;
+                width: 200px;
+                vertical-align: middle;
+            }
+
+            #main {
+                float:left;
+                width: 80%;
+                margin-right:-200px;
+                overflow:hidden;
+                
+            }
+
+            .product-list .item {
+                width: 25%;
+                padding:10px 20px 10px;
+                float:left;
+                text-align:center;
+                line-height:1.2;
+                margin-bottom: 2px;
+
+            }
+
+            .item {
+                width: auto;
+                height: 40%;
+                background: #fff7d5;
+                color: #000000;
+                border: 1px dotted #acacac;
+                border-radius: 10%;
+
+            }
+
+            .item:nth-child(5n) {
+                margin-right: 0;
+            }
+        </style>
+</div>
+{% endblock other_section %}

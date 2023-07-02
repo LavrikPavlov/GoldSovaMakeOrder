@@ -1,0 +1,127 @@
+{% extends 'main/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block button_section %}
+<div class="navbar-nav">
+    <a href="{% url 'exit' %}" class="btn btn-outline-danger mr-2">Выход</a>
+</div>
+{% endblock button_section %}
+
+
+{% block main_section  %}
+  <div class="d-flex text-body-secondary pt-3">
+    <img class="mr-2 rounded" style="width: 64px; height: 64px;" src="{{ user.profile.img.url }}">
+    <p class="pb-3 mb-0 small lh-sm border-bottom",style="white-space: pre-wrap;">
+      <strong class="d-block text-gray-dark">&nbsp;&nbsp;&nbsp;&nbsp;ID пользователя: {{ user.id }}</strong>
+      <strong class="d-block text-blue-dark">&nbsp;&nbsp;&nbsp;&nbsp;Имя и фамилия: {{ user.first_name }}&nbsp;{{ user.last_name }}</strong>
+      {% if user.org == '' %}
+      <strong class="d-block text-blue-dark">&nbsp;&nbsp;&nbsp;&nbsp;Организация: Отсутсвует</strong>
+      {% else %}
+      <strong class="d-block text-blue-dark">&nbsp;&nbsp;&nbsp;&nbsp;Организация: {{ user.org }}</strong>
+      {% endif %}
+    </p>
+    
+  </div>
+{% endblock main_section %}
+
+{% block other_section %}
+  {% if user.succes_user == False %}
+    <strong class="d-block text-blue-dark" >&nbsp;&nbsp;&nbsp;&nbsp;Потвержденный пользователь: <p class="spinner-grow text-danger" role="status">&nbsp;</p></strong>
+  {% else %}
+    <strong class="d-block text-blue-dark" >&nbsp;&nbsp;&nbsp;&nbsp;Потвержденный пользователь: <p class="spinner-grow text-success" role="status">&nbsp;</p></strong>
+  {% endif %}
+
+{% endblock other_section %}
+
+{% block new3_section  %}
+<div class="row gy-3 gy-xxl-5">
+  <div class="col">
+    <h3 class="text-center">Информация о пользователе</h3>
+     <div class="p-3 border bg-light">
+          <p>Email:</b> {{ user.email}}</p><hr>
+          {% if user.org != '' %}
+          <p>Телефон:</b> {{ user.phone}} </p><hr>
+          <p>Адрес:</b> {{ user.adress}}</p><hr>
+          <p>Организация:</b> {{ user.org }}</p><hr>
+          {% else %}
+          <p>Телефон:</b> Отсутсвует</p><hr>
+          <p>Адрес:</b> Отсутсвует</p><hr>
+          <p>Организация:</b> Не указана</p><hr>
+          <p>Дата регистрации:</b> {{ user.date_joined }}</p><hr>
+          {% endif %}
+          {% if user.succes_user == False %}
+          <br>
+          <hr><p> Для потвержденния пользователя, с вами свяжется оператор</b></p><hr>
+          {% endif %}
+     </div>
+  </div>
+  {% if user.succes_user %}
+  <div class="col">
+    <h3 class="text-center">Заказы</h3>
+     <div class="p-3 border ">
+      <div class="form-history">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Номер заказа</th>
+              <th scope="col">Статус заказа</th>
+              <th scope="col">Создание заказа</th>
+            </tr>
+          </thead>
+          {% for el in history %}
+          <tbody>
+            {% if el.status_order == 1  %}
+            <tr class="table-secondary">
+              <th scope="row">№ {{ el.number_order }}</th>
+              <td>Рассмотрение</td>
+              <td>{{ el.created }}&nbsp&nbsp&nbsp<a href="{% url 'order:delete_order' number_order=el.number_order %}" class="btn btn-danger mr-2">Удалить</a></td>
+            </tr>
+            {% endif %}
+            {% if el.status_order == 5  %}
+            <tr class="table-success">
+              <th scope="row">№ {{ el.number_order }}</th>
+              <td>Выполнен</td>
+              <td>{{ el.created }}</td>
+              
+            </tr>
+            {% endif %}
+            {% if el.status_order == 6 %}
+            <tr class="table-danger">
+              <th scope="row">№ {{ el.number_order }}</th>
+              <td>Отменен</td>
+              <td>{{ el.created }}</td>
+            </tr>
+            {% endif %}
+            {% if el.status_order == 2 or el.status_order == 3 or el.status_order == 4  %}
+            <tr class="table-warning">
+              <th scope="row">№ {{ el.number_order }}</th>
+              {% if el.status_order == 2 %}
+              <td>Начат</td>
+              {% endif %}
+              {% if el.status_order == 3 %}
+              <td>Потвержден</td>
+              {% endif %}
+              {% if el.status_order == 4 %}
+              <td>Выполнение</td>
+              {% endif %}
+              <td>{{ el.created }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+          {% endfor %}
+        </table>
+      </div>
+      <p class=""> </p>
+     </div>
+  </div>
+  {% endif %}
+    <p class="lead fw-normal text-center">Для того, чтобы обновить/изменить данные профиля 
+      <br>
+      <small class="text-center"><a class="btn btn-outline-danger" href="{% url 'edit' %}">Обновление</a></small>
+    </p>
+    
+</div>
+
+
+{% endblock new3_section  %}
+

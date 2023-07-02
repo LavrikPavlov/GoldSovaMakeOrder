@@ -1,0 +1,28 @@
+{% extends 'main/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block button_section %}
+    <a href="{% url 'exit' %}" class="btn btn-outline-danger mr-2">Выход</a>
+{% endblock button_section %}
+
+{% block main_section %}
+<div class="form-registe col-md-5 p-lg-5 mx-auto my-2">
+    <h2 class="display-6 fw-normal">Оформление заявки</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <br>
+                <hr>
+                <p>Ваша организация: <span class="mark">{{ org }}</span></p>
+                <hr>
+                <p>Ваш адресс: <span class="mark">{{ adress }}</span></p>
+                <hr>
+                <br>
+                {{ form | crispy }}
+                <p><br></p>
+                <button type="sumbit" class="btn btn-outline-primary">Сделать заказ</button>
+            </form>
+            <hr>
+            
+</div>
+{% endblock main_section %}

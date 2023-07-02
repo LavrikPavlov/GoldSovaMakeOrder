@@ -1,0 +1,52 @@
+{% extends 'main/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block button_section %}
+    <a href="{% url 'exit' %}" class="btn btn-outline-danger mr-2">Выход</a>
+{% endblock button_section %}
+
+{% block main_section %}
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+    <h1 class="display-6 fw-normal">Как происходит заказ</h1>
+    <p class="lead fw-normal">По кнопке "Заявка", вы можете получить Excel файл, в котором вам нужно заполнить позиции тех товаров, которые хотите заказать.</p>
+    <a href="{% url 'order:download_file' %}" class="btn btn-info">Заявка</a>
+    <a href="{% url 'order:make_order_form' %}" class="btn btn-info">Форма отправки заявки</a>
+    <p><br></p>
+    <h2>Условия заказа продукции</h2>
+    <br>
+     <figure>
+        <blockquote class="blockquote">
+           <p>В одной упаковке: <span class="mark">12 бутылок (6 л.)</span>. Минимальный оптовый заказ: <span class="mark">10 упаковок</span></p>
+        </blockquote>
+        <figcaption class="blockquote-footer">Обьем 0.5</figcaption>
+     </figure>
+     <figure>
+        <blockquote class="blockquote">
+           <p>В одной упаковке: <span class="mark">6 бутылок (6 л.)</span>. Минимальный оптовый заказ: <span class="mark">5 упаковок</span></p>
+        </blockquote>
+        <figcaption class="blockquote-footer">Обьем 1.0</figcaption>
+     </figure>
+     <figure>
+        <blockquote class="blockquote">
+           <p>В одной упаковке: <span class="mark">6 бутылок (9 л.)</span>. Минимальный оптовый заказ: <span class="mark">5 упаковок</span></p>
+        </blockquote>
+        <figcaption class="blockquote-footer">Обьем 1.5</figcaption>
+     </figure>
+     <figure>
+        <blockquote class="blockquote">
+           <p>В одной упаковке: <span class="mark">1 КЕГ (50л)</span>. Минимальный оптовый заказ: <span class="mark">1 КЕГ</span></p>
+        </blockquote>
+        <figcaption class="blockquote-footer">Обьем 50</figcaption>
+     </figure>
+</div>
+<hr>
+{% endblock main_section %}
+
+{% block other_section %}
+{% endblock other_section %}
+
+{% block new3_section %}
+{% endblock new3_section %}
+
+{% block footer  %}
+{% endblock footer  %}
